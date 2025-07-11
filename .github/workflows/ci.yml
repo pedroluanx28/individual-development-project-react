@@ -1,0 +1,32 @@
+name: CI - Lint & Tests
+
+on:
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
+
+jobs:
+    lint-and-test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 🔄 Code Checkout
+              uses: actions/checkout@v3
+
+            - name: 🧰 Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+
+            - name: 📦 Install Dependencies
+              run: npm install
+
+            - name: 🧹 Run ESLint
+              run: npm run lint
+
+            - name: 🧪 Run e2e tests with Cypress
+              run: npm run cy:run
+
+            - name: 🧪 Run vitest
+              run: npm run test
