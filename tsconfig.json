@@ -13,8 +13,8 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"module": "ES2015",
-		"types": ["vitest/globals"],
+		"module": "ES2022",
+		"types": ["vitest/globals", "vite/client"]
 	},
 	"include": ["cypress", "cypress.config.ts"]
 }
