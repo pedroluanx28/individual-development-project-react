@@ -26,7 +26,11 @@ export function Input({
 			{label && <Form.Label className="m-0">{label}</Form.Label>}
 			<Form.Control {...rest} isInvalid={isInputInvalid} />
 			{errorMessage && (
-				<span className="text-danger" id={`${controlId}-error`}>
+				<span
+					className="text-danger"
+					id={`${controlId}-error`}
+					data-cy={`${controlId}-error`}
+				>
 					{errorMessage}
 				</span>
 			)}

@@ -1,16 +1,16 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import { api } from "@/api/instace";
 
 import Form from "react-bootstrap/Form";
 
-import { simpleFormValidationSchema } from "@/utils/validationSchemas/simpleFormValidationSchema";
 import { Toast } from "@/utils/mixins/swal";
+import { postRegistrationFormValidationSchema } from "@/utils/validationSchemas/postRegistrationForm";
 
-import { Input } from "../Input";
+import { Input } from "@/components/Input";
 
-type SimpleFormFields = {
+type PostRegistrationFormFields = {
 	name: string;
 	email: string;
 	phone: string;
@@ -19,16 +19,21 @@ type SimpleFormFields = {
 	confirmPassword: string;
 };
 
-export function SimpleForm() {
-	const { register, handleSubmit, formState } = useForm<SimpleFormFields>({
-		resolver: zodResolver(simpleFormValidationSchema)
+export function RegistrationForm() {
+	const {
+		register,
+		handleSubmit,
+		formState,
+		reset: resetForm
+	} = useForm<PostRegistrationFormFields>({
+		resolver: zodResolver(postRegistrationFormValidationSchema)
 	});
 
 	const { errors } = formState;
 
-	const onSubmit: SubmitHandler<SimpleFormFields> = async (data) => {
+	const onSubmit: SubmitHandler<PostRegistrationFormFields> = async (data) => {
 		try {
-			await axios.post("https://jsonplaceholder.typicode.com/posts", data);
+			await api.post("/posts", data);
 
 			Toast.fire({
 				icon: "success",
@@ -39,11 +44,13 @@ export function SimpleForm() {
 				icon: "error",
 				text: "Erro ao enviar o formulário."
 			});
+		} finally {
+			resetForm();
 		}
 	};
 
 	return (
-		<Form className="px-4" onSubmit={handleSubmit(onSubmit)}>
+		<Form className="px-4" onSubmit={handleSubmit(onSubmit)} data-cy="post-registration-form">
 			<div className="mb-4">
 				<Input
 					containerClassName="mb-3"
@@ -51,6 +58,7 @@ export function SimpleForm() {
 					label="Nome"
 					errorMessage={errors.name?.message}
 					controlId="name"
+					data-cy="name"
 					{...register("name")}
 				/>
 				<Input
@@ -59,6 +67,7 @@ export function SimpleForm() {
 					label="E-mail"
 					errorMessage={errors.email?.message}
 					controlId="email"
+					data-cy="email"
 					{...register("email")}
 				/>
 				<Input
@@ -67,6 +76,7 @@ export function SimpleForm() {
 					label="Telefone"
 					errorMessage={errors.phone?.message}
 					controlId="phone"
+					data-cy="phone"
 					{...register("phone")}
 				/>
 				<Input
@@ -75,6 +85,7 @@ export function SimpleForm() {
 					label="CPF"
 					errorMessage={errors.identifier?.message}
 					controlId="identifier"
+					data-cy="identifier"
 					{...register("identifier")}
 				/>
 				<Input
@@ -84,6 +95,7 @@ export function SimpleForm() {
 					type="password"
 					errorMessage={errors.password?.message}
 					controlId="password"
+					data-cy="password"
 					{...register("password")}
 				/>
 				<Input
@@ -93,6 +105,7 @@ export function SimpleForm() {
 					type="password"
 					errorMessage={errors.confirmPassword?.message}
 					controlId="confirm-password"
+					data-cy="confirmPassword"
 					{...register("confirmPassword")}
 				/>
 			</div>

@@ -1,7 +1,7 @@
 import { object, string, email } from "zod";
 import { cpf } from "cpf-cnpj-validator";
 
-export const simpleFormValidationSchema = object({
+export const postRegistrationFormValidationSchema = object({
 	name: string().min(3, "O nome deve ter no mínimo 3 caracteres."),
 	email: email("O e-mail deve ser válido."),
 	phone: string().length(11, "O número de telefone de ter 11 digitos"),
