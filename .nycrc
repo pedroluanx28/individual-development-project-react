@@ -1,0 +1,5 @@
+{
+  "report-dir": "./cypress/coverage",
+  "temp-dir": "./cypress/.nyc_output",
+  "reporter": ["text", "lcov", "html"]
+}
