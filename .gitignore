@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+coverage
+cypress/coverage
+cypress/.nyc_output
 
 # Editor directories and files
 .vscode/*

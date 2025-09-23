@@ -32,7 +32,9 @@ describe("register user", () => {
 		const data = { ...validData, ...overrides };
 
 		Object.entries(data).forEach(([key, value]) => {
-			cy.get(selectors[key]).clear().type(value);
+			if (Boolean(value)) {
+				cy.get(selectors[key]).clear().type(value);
+			}
 		});
 	}
 
@@ -94,7 +96,21 @@ describe("register user", () => {
 			errorSelector: "[data-cy=confirm-password-error]",
 			expected: "As senhas devem ser iguais",
 			testName: "should show error when confirmation password does not match"
-		}
+		},
+		{
+			field: "password",
+			value: "",
+			errorSelector: "[data-cy=password-error]",
+			expected: "A senha deve ter no mínimo 4 caracteres",
+			testName: "should show error when password is empty"
+		},
+		{
+			field: "confirmPassword",
+			value: "",
+			errorSelector: "[data-cy=confirm-password-error]",
+			expected: "As senhas devem ser iguais",
+			testName: "should show error when confirmation password is empty"
+		},
 	];
 
 	errorCases.forEach(({ field, value, errorSelector, expected, testName }) => {

@@ -13,8 +13,9 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"module": "ES2022",
-		"types": ["vitest/globals", "vite/client"]
+		"module": "nodenext",
+		"types": ["vitest/globals", "vite/client", "cypress"],
+		"moduleResolution": "nodenext"
 	},
-	"include": ["cypress", "cypress.config.ts"]
+	"include": ["cypress", "cypress.config.ts", "src/cypress.d.ts"]
 }
