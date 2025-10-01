@@ -32,7 +32,7 @@ describe("register user", () => {
 		const data = { ...validData, ...overrides };
 
 		Object.entries(data).forEach(([key, value]) => {
-			if (Boolean(value)) {
+			if (value) {
 				cy.get(selectors[key]).clear().type(value);
 			}
 		});
