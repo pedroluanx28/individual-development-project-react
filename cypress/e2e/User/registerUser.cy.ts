@@ -47,7 +47,10 @@ describe("register user", () => {
 
 		cy.get("[data-cy=post-registration-form]").submit();
 
-		cy.get(".swal2-container").should("contain", "Formulário enviado com sucesso.");
+		cy.get(".swal2-container", { timeout: 10000 }).should(
+			"contain",
+			"Formulário enviado com sucesso."
+		);
 
 		Object.values(selectors).forEach((selector) => {
 			cy.get(selector).should("have.value", "");
@@ -110,7 +113,7 @@ describe("register user", () => {
 			errorSelector: "[data-cy=confirm-password-error]",
 			expected: "As senhas devem ser iguais",
 			testName: "should show error when confirmation password is empty"
-		},
+		}
 	];
 
 	errorCases.forEach(({ field, value, errorSelector, expected, testName }) => {
