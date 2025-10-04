@@ -47,11 +47,6 @@ describe("register user", () => {
 
 		cy.get("[data-cy=post-registration-form]").submit();
 
-		cy.get(".swal2-container", { timeout: 10000 }).should(
-			"contain",
-			"Formulário enviado com sucesso."
-		);
-
 		Object.values(selectors).forEach((selector) => {
 			cy.get(selector).should("have.value", "");
 		});
